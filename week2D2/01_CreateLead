@@ -1,0 +1,44 @@
+/*Test Steps:
+Assignment: 1 Create Lead
+1. Login to https://login.salesforce.com
+2. Click on toggle menu button from the left corner
+3. Click view All and click Sales from App Launcher
+4. Click on Leads tab 
+5. Click on New button
+6. Select Salutation dropdown
+7. Enter the Last Name
+8. Enter the CompanyName 
+9. Click Save and Verify Leads name created*/
+
+import { Browser, BrowserContext, chromium, Page, test } from "@playwright/test";
+
+test('Create Lead', async () => {
+    const browser = await chromium.launch({headless:false, channel:"chrome"})
+    const browserContext = await browser.newContext()
+    const page = await browserContext.newPage()
+    await page.goto("https://login.salesforce.com")
+    await page.locator('#username').fill("vidyar@testleaf.com")
+    await page.locator('#password').fill("Sales@123")
+    await page.locator('#Login').click()
+    await page.locator("[title='App Launcher']").click()
+    await page.locator("[aria-label='View All Applications']").click()
+    await page.locator("xpath=//p[text()='Sales']").click()
+    await page.locator("[title='Leads']").click()
+    await page.locator("xpath=//div[text()='New']").click()
+    let salutation = await page.locator("[name='salutation']").click()
+    await page.locator("[title='Mrs.']").click()
+    await page.locator("[name='lastName']").fill("G")
+    await page.locator("[name='Company']").fill("Infy")
+    await page.locator("[name='SaveEdit']").click()
+    let Message = await page.locator(".toastMessage").innerText()
+    console.log("Lead created : " + Message)
+
+     result:
+     Running 1 test using 1 worker
+
+  ✓  1 w2d2_01_CreateLead.spec.ts:15:5 › Create Lead (23.6s)
+Lead created : Lead "Mrs. G" was created.
+
+  Slow test file: w2d2_01_CreateLead.spec.ts (23.6s)
+  Consider splitting slow test files to speed up parallel execution
+  1 passed (25.8s)
