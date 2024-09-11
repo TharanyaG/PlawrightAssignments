@@ -1,0 +1,30 @@
+//length of last word
+const lengthOfLastWord = function(s) {
+    let totalLength = s.length;
+    let length =0
+    while(totalLength >0){
+        totalLength--;
+        if(s[totalLength]!==" "){
+            length++;
+        }else if(length > 0){
+            return length;
+        }
+    }
+    return length;
+};
+console.log("length is "+lengthOfLastWord("world is beautiful"));
+
+//ANagram:
+function Anagram(str1, str2) {
+    str1 = str1.replace(/\s/g, '').toLowerCase()
+    str2 = str2.replace(/\s/g, '').toLowerCase()
+    if (str1.length !== str2.length) {
+        return false
+    }
+    str1 = str1.split('').sort().join('')
+    str2 = str2.split('').sort().join('')
+
+    return str1 === str2
+}
+const check = Anagram('madam', 'madam')
+console.log("The given two strings are "+check)
