@@ -1,0 +1,26 @@
+const value=5;
+let sum=0;
+function sumofnumbers()
+{
+    for(let i=1;i<=value;i++)
+    {
+        sum=sum+i
+    }
+    console.log(`The Sum of all the values between 1 to ${val} is `+sum)
+}
+sumofnumbers()
+
+const startnum=1;
+const endnum=10;
+let add=0;
+function additionofnumbers()
+{
+    for(let i=1;i<=startnum;i++)
+    {
+sum=sum+i
+console.log(`${i}, ${i+1} = ${sum}`)
+console.log(sum)
+    }
+}
+
+additionOfnumbers()
