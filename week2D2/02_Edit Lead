@@ -23,7 +23,7 @@ test('Edit Lead', async () => {
     const browserContext = await browser.newContext()
     const page = await browserContext.newPage()
     await page.goto("http://leaftaps.com/opentaps/control/main")
-    await page.locator("#username").fill("Demosalesmanager")
+    await page.locator("#username").fill("DemoCsr")
     await page.locator("#password").fill("crmsfa")
     await page.locator(".decorativeSubmit").click()
     await page.locator("//div[@id='label']//a").click()
@@ -40,3 +40,13 @@ test('Edit Lead', async () => {
     let companyname = await page.locator("#viewLead_companyName_sp").innerText()
     console.log(companyname)
 })
+
+result:
+Running 1 test using 1 worker
+
+  ✓  1 w2d2_02_EditLead.spec.ts:21:5 › Edit Lead (17.3s)
+Infys (13816)
+
+  Slow test file: w2d2_02_EditLead.spec.ts (17.3s)
+  Consider splitting slow test files to speed up parallel execution
+  1 passed (19.0s)
