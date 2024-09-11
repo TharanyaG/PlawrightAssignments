@@ -1,0 +1,42 @@
+/*
+Assignment: 3 Create Individuals
+Test Steps: 
+1. Login to https://login.salesforce.com
+2. Click on the toggle menu button from the left corner
+3. Click View All and click Individuals from App Launcher
+4. Click on the Dropdown icon in the Individuals tab
+5. Click on New Individual
+6. Enter the Last Name
+7. Click save and verify Individuals Name*/
+
+import test, { chromium } from "@playwright/test"
+
+test('Create Individuals', async () => {
+    const browser = await chromium.launch({headless:false, channel:"chrome"})
+    const browserContext = await browser.newContext()
+    const page = await browserContext.newPage()
+    await page.goto("https://login.salesforce.com")
+    await page.locator('#username').fill("vidyar@testleaf.com")
+    await page.locator('#password').fill("Sales@123")
+    await page.locator('#Login').click()
+    await page.locator("[title='App Launcher']").click()
+    await page.locator("[part='button']").click()
+    await page.locator("//p[text()='Individuals']").click()
+    await page.locator("//div[@class='slds-context-bar__label-action slds-p-left_none slds-p-right_x-small']").click()
+        await page.locator("//span[text()='New Individual']").click()
+        await page.locator("[placeholder='Last Name']").fill('helo')
+        await page.locator("[title='Save']").click()
+        const message = await page.locator(".toastMessage").innerText()
+        console.log("New Individuals verfied : " + message)
+})
+
+result:
+
+Running 1 test using 1 worker
+
+  ✓  1 w2d2_03_CreateIndividuals.spec.ts:14:5 › Create Individuals (19.3s)
+New Individuals created : Individual "helo" was created.
+
+  Slow test file: w2d2_03_CreateIndividuals.spec.ts (19.3s)
+  Consider splitting slow test files to speed up parallel execution
+  1 passed (20.7s)
