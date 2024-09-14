@@ -1,0 +1,37 @@
+/*Assignment: 4 Edit Individuals
+Test Steps:
+1. Login to https://login.salesforce.com
+2. Click on the toggle menu button from the left corner
+3. Click View All and click Individuals from App Launcher 
+4. Click on the Individuals tab 
+5. Search the Individuals last name
+6. Click on the Dropdown icon and Select Edit
+7. Select Salutation as 'Mr'
+8. Now enter the first name
+9. Click on Save and Verify the first name 
+*/
+
+import test, { chromium } from "@playwright/test"
+
+test('Edit Individuals', async () => {
+    const browser = await chromium.launch({headless:false, channel:"chrome"})
+    const browserContext = await browser.newContext()
+    const page = await browserContext.newPage()
+    await page.goto("https://login.salesforce.com")
+    await page.locator('#username').fill("vidyar@testleaf.com")
+    await page.locator('#password').fill("Sales@123")
+    await page.locator('#Login').click()
+    await page.locator("[title='App Launcher']").click()
+    await page.locator("[part='button']").click()
+    await page.locator("//p[text()='Individuals']").click()
+    //await page.locator("//div[@class='slds-context-bar__label-action slds-p-left_none slds-p-right_x-small']").click()
+    //await page.locator("//span[text()='All Individuals | Individuals']").click()
+    await page.locator("//input[@name='Individual-search-input']").fill("Again helo")
+    await page.locator("(//div[@class='forceVirtualActionMarker forceVirtualAction']/a").click()
+    await page.locator("//div[@title='Edit']").click()
+    await page.locator("[title='Mrs.']").click()
+    //await page.locator("[placeholder='First Name']").fill('Again helo')
+    await page.locator("(//span[text()='Save'])[2]").click()
+    let verifyMessage = await page.locator(".toastMessage").innerText()
+    console.log(verifyMessage)
+})
