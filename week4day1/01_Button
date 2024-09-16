@@ -1,0 +1,35 @@
+// 1. Navigate to https://leafground.com/button.xhtml
+// 2. Write a script to click the button and confirm a title change or any visible response.
+// 3. Assert the disabled state of a button.
+// 4. Click the Image button and click on any hidden button
+// 5. Check how many rounded buttons are present
+import test, { expect } from "@playwright/test";
+
+test('This is to test button', async ({ page }) => {
+    await page.goto("https://leafground.com/button.xhtml")
+    await page.locator("//span[text()='Click']").click()
+    await page.waitForTimeout(3000)
+    let title = await page.title()
+    console.log("The title of the page is : "+title)
+    await expect(page).toHaveTitle('Dashboard')
+     await page.goBack()
+     let btnDisable = page.locator("//button//span[text()='Disabled']")
+    await expect(btnDisable).toBeDisabled()
+    await page.locator("//button//span[text()='Image']").click()
+    let hiddenBtn = await page.$("//Button//span[text()='Primary']");
+    expect(hiddenBtn).not.toHaveProperty('hidden')
+    let btn = page.locator("//h5[contains(text(),'How many rounded')]//following::button")
+    console.log("The number of rounded button are : " +await btn.count())
+    
+})
+
+
+Running 1 test using 1 worker
+[Google Chrome] › Assignments\w4d1_01_Button.spec.ts:8:5 › This is to test button
+The title of the page is : Dashboard
+The number of round/pills button are : 4
+  1 passed (8.9s)
+
+To open last HTML report run:
+
+  npx playwright show-report
